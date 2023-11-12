@@ -3,26 +3,40 @@
 
 // Função para cadastro de novas tarefas:
 void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
- // Se o número de tarefas é menor que 100, executar o cadastro.
     if (*numTarefas < 100) {
         Tarefa novaTarefa;
         printf("======================================================\n");
         printf("\nCadastrar Nova Tarefa:\n");
-     // Pede a prioridade da tarefa.
-        printf("\nPrioridade (0 a 10): ");
-     // Guarda valor da prioridade da tarefa no endereço de "novaTarefa"
-        scanf("%d", &novaTarefa.prioridade);
 
-     // Se a prioridade < 0, atribui 0 ao valor da prioridade.
+     // Prioridade
+        printf("\nPrioridade (0 a 10): ");
+        scanf("%d", &novaTarefa.prioridade);
         if (novaTarefa.prioridade < 0) {
             novaTarefa.prioridade = 0;
-            printf("(Prioridade menor que 0: A prioridade será automaticamente definida para a mmenor possível)\n");
-        }
-     // Se a prioridade > 10, atribui 10 ao valor da prioridade.
-        else if(novaTarefa.prioridade > 10){
+            printf("(Prioridade menor que 0: A prioridade será automaticamente definida para a menor possível)\n");
+        } else if (novaTarefa.prioridade > 10) {
             novaTarefa.prioridade = 10;
             printf("(Prioridade maior que 10: A prioridade será automaticamente definida para a maior possível)\n");
-        };
+        }
+     // Descrição
+        printf("Descricao (ate 300 letras): ");
+        scanf(" %s[^\n]", novaTarefa.descricao);
+     // Categoria
+        printf("Categoria (ate 100 letras): ");
+        scanf(" %s[^\n]", novaTarefa.categoria);
+     // Estado
+        printf("Estado (Digite apenas o algarismo): \n 1. nao iniciado, 2. em andamento, 3. completo: ");
+        scanf("%d[^\n]", &novaTarefa.estado);
+
+        tarefas[*numTarefas] = novaTarefa;
+        (*numTarefas)++;
+
+        printf("\nTarefa cadastrada com sucesso!");
+        printf("\n======================================================\n");
+    } else {
+        printf("O limite de tarefas atingido. Não eh possível cadastrar mais tarefas.\n");
+    }
+}
 
      // Pede a descrição da tarefa com capacidade de até 300 caracteres.
         printf("Descrição (até 300 letras): ");
