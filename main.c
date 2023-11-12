@@ -24,7 +24,8 @@ int main(){
         printf("1. Criar Tarefa\n");
         printf("2. Deletar Tarefa\n");
         printf("3. Listar Tarefas\n");
-        printf("Lembre-se: A quantidade máxima de tarefas é 100!\n");
+        printf("4. Alterar Tarefa\n");
+        printf("Lembre-se: A quantidade maxima de tarefas eh 100!\n");
         printf("\nDigite aqui o algarismo da funcionalidade desejada: ");
         scanf("%d", &opcao);
 
@@ -34,22 +35,26 @@ int main(){
             printf("Encerrando Gerenciador...\n");
         }
 
-        // Se o input do usuário = 1, cadastra uma nova tarefa.
+            // Se o input do usuário = 1, cadastra uma nova tarefa.
         else if(opcao == 1){
             cadastrarTarefa(tarefas, &numTarefas);
         }
 
-        // Se o input do usuário = 2, deleta uma tarefa de acordo com seu respectivo número.
+            // Se o input do usuário = 2, deleta uma tarefa de acordo com seu respectivo número.
         else if(opcao == 2){
             deletarTarefa(tarefas, &numTarefas);
         }
 
-        //se o input do usuário = 3, listar as tarefas cadastradas.
+            //se o input do usuário = 3, listar as tarefas cadastradas.
         else if(opcao == 3){
             listarTarefas(tarefas, numTarefas);
         }
 
-        //se o input do usuário não for nenhuma das opções acima, retorna erro.
+        else if(opcao == 4){
+            alterarTarefa(tarefas, numTarefas);
+        }
+
+            //se o input do usuário não for nenhuma das opções acima, retorna erro.
         else{
             printf("\n");
             printf("ERRO: Funcionalidade inexistente.\n");
