@@ -38,29 +38,6 @@ void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
     }
 }
 
-     // Pede a descrição da tarefa com capacidade de até 300 caracteres.
-        printf("Descrição (até 300 letras): ");
-     // Guarda valor da descriçao da tarefa em novaTarefa.
-        scanf(" %[^\n]s", novaTarefa.descricao);
-     // Pede a categoria da tarefa com capacidade de até 100 caracteres.
-        printf("Categoria (até 100 letras): ");
-     // Guarda valor da categoria da tarefa em novaTarefa.
-        scanf(" %[^\n]s", novaTarefa.categoria);
-     // A nova tarefa acresce o número de tarefas em 1.
-        tarefas[*numTarefas] = novaTarefa;
-        (*numTarefas)++;
-
-        printf("\nTarefa cadastrada com sucesso!");
-        printf("\n==============================");
-
-        printf("\n");
-    }
- // Se número de tarefas > 100, retorna erro.
-    else {
-        printf("O limite de tarefas atingido. Não é possível cadastrar mais tarefas.\n");
-    }
-}
-
 // Função de listagem das tarefas cadastradas:
 void listarTarefas(Tarefa tarefa[], int numTarefas) {
  // Se número de tarefas cadastradas > 0, mostrar lista.
