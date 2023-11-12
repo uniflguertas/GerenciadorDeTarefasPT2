@@ -10,3 +10,4 @@ typedef struct {
 void cadastrarTarefa(Tarefa tarefas[], int *numTarefas);
 void deletarTarefa(Tarefa tarefas[], int *numTarefas);
 void listarTarefas(Tarefa tarefas[], int numTarefas);
+void alterarTarefa(Tarefa tarefas[], int numTarefas);
