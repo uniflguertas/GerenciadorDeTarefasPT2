@@ -40,28 +40,159 @@ void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
 
 // Função de listagem das tarefas cadastradas:
 void listarTarefas(Tarefa tarefa[], int numTarefas) {
+    char realizarFiltragem[2];
+    int opcaoFiltro, prioridadeFiltro, estadoFiltro;
+    char categoriaFiltro[100];
  // Se número de tarefas cadastradas > 0, mostrar lista.
     if (numTarefas > 0) {
         printf("======================================================\n");
-        printf("\nLista de Tarefas:\n");
-        printf("\n=================\n");
+        printf("Lista de Tarefas:\n");
+        printf("======================================================\n");
      // Formato de amostragem das tarefas.
         for (int i = 0; i < numTarefas; i++) {
             printf("\nTarefa %d:\n", i + 1);
             printf("Prioridade: %d\n", tarefa[i].prioridade);
-            printf("Descrição: %s\n", tarefa[i].descricao);
+            printf("Descricao: %s\n", tarefa[i].descricao);
             printf("Categoria: %s\n", tarefa[i].categoria);
-            printf("\n");
+            if(tarefa[i].estado == 1){
+                printf("Estado: nao iniciada\n");
+            }
+            else if(tarefa[i].estado == 2){
+                printf("Estado: em andamento\n");
+            }
+            else if(tarefa[i].estado == 3){
+                printf("Estado: completa\n");
+            }
+            printf("\n======================================================\n");
         }
-        printf("=================\n");
-        printf("\n(Arraste para cima para vizualisar as tarefas cadastradas)\n");
-        printf("==========================================================\n");
+
+        printf("\nFiltrar listagem? (s/n): ");
+        scanf("%s", realizarFiltragem);
+
+        if(strcmp("s", realizarFiltragem) == 0){
+            printf("\nTipo de filtragem (digite apenas o algarismo respectivo):\n");
+            printf("1. Filtrar por prioridade\n");
+            printf("2. Filtrar por estado\n");
+            printf("3. Filtrar por categoria\n");
+            printf("4. Filtrar por prioridade e categoria\n");
+            printf("Digite aqui: ");
+            scanf("%d", &opcaoFiltro);
+
+            if(opcaoFiltro == 1){
+                printf("\nDigite a prioridade desejada: ");
+                scanf("%d", &prioridadeFiltro);
+                printf("======================================================\n");
+                printf("Lista de Tarefas\n");
+                printf("======================================================\n");
+                for (int i = 0; i < numTarefas; i++) {
+                    if(tarefa[i].prioridade == prioridadeFiltro) {
+                        printf("\nTarefa %d:\n", i + 1);
+                        printf("Prioridade: %d\n", tarefa[i].prioridade);
+                        printf("Descricao: %s\n", tarefa[i].descricao);
+                        printf("Categoria: %s\n", tarefa[i].categoria);
+                        if(tarefa[i].estado == 1){
+                            printf("Estado: nao iniciada\n");
+                        }
+                        else if(tarefa[i].estado == 2){
+                            printf("Estado: em andamento\n");
+                        }
+                        else if(tarefa[i].estado == 3){
+                            printf("Estado: completa\n");
+                        }
+                        printf("\n======================================================\n");
+                    }
+                }
+            }
+
+            else if(opcaoFiltro == 2){
+                printf("\nDigite o estado desejado: ");
+                scanf("%d", &estadoFiltro);
+                printf("======================================================\n");
+                printf("Lista de Tarefas\n");
+                printf("======================================================\n");
+                for (int i = 0; i < numTarefas; i++) {
+                    if(tarefa[i].estado == estadoFiltro) {
+                        printf("\nTarefa %d:\n", i + 1);
+                        printf("Prioridade: %d\n", tarefa[i].prioridade);
+                        printf("Descricao: %s\n", tarefa[i].descricao);
+                        printf("Categoria: %s\n", tarefa[i].categoria);
+                        if(tarefa[i].estado == 1){
+                            printf("Estado: nao iniciada\n");
+                        }
+                        else if(tarefa[i].estado == 2){
+                            printf("Estado: em andamento\n");
+                        }
+                        else if(tarefa[i].estado == 3){
+                            printf("Estado: completa\n");
+                        }
+                        printf("\n======================================================\n");
+                    }
+                }
+            }
+
+            else if(opcaoFiltro == 3){
+                printf("\nDigite a categoria desejada: ");
+                scanf("%s", categoriaFiltro);
+                printf("======================================================\n");
+                printf("Lista de Tarefas\n");
+                printf("======================================================\n");
+                for (int i = 0; i < numTarefas; i++) {
+                    if(strcmp(tarefa[i].categoria, categoriaFiltro) == 0) {
+                        printf("\nTarefa %d:\n", i + 1);
+                        printf("Prioridade: %d\n", tarefa[i].prioridade);
+                        printf("Descricao: %s\n", tarefa[i].descricao);
+                        printf("Categoria: %s\n", tarefa[i].categoria);
+                        if(tarefa[i].estado == 1){
+                            printf("Estado: nao iniciada\n");
+                        }
+                        else if(tarefa[i].estado == 2){
+                            printf("Estado: em andamento\n");
+                        }
+                        else if(tarefa[i].estado == 3){
+                            printf("Estado: completa\n");
+                        }
+                        printf("\n======================================================\n");
+                    }
+                }
+            }
+            else if(opcaoFiltro == 4){
+                printf("\nDigite a prioridade desejada: ");
+                scanf("%d", &prioridadeFiltro);
+                printf("\nDigite categoria desejada: ");
+                scanf("%s", categoriaFiltro);
+                printf("======================================================\n");
+                printf("Lista de Tarefas\n");
+                printf("======================================================\n");
+                for (int i = 0; i < numTarefas; i++) {
+                    if (tarefa[i].prioridade == prioridadeFiltro && strcmp(tarefa[i].categoria, categoriaFiltro) == 0) {
+                        printf("\nTarefa %d:\n", i + 1);
+                        printf("Prioridade: %d\n", tarefa[i].prioridade);
+                        printf("Descricao: %s\n", tarefa[i].descricao);
+                        printf("Categoria: %s\n", tarefa[i].categoria);
+                        if(tarefa[i].estado == 1){
+                            printf("Estado: nao iniciada\n");
+                        }
+                        else if(tarefa[i].estado == 2){
+                            printf("Estado: em andamento\n");
+                        }
+                        else if(tarefa[i].estado == 3){
+                            printf("Estado: completa\n");
+                        }
+                        printf("\n======================================================\n");
+                    }
+                }
+            }
+        }
+
+        else if(strcmp("n", realizarFiltragem) == 0){
+            printf("\n======================================================\n");
+        }
     }
  // Se não ouver tarefas cadastradas, retornar mensagem.
     else {
-        printf("\n");
-        printf("Nenhuma tarefa cadastrada.\n");
-        printf("==========================\n");
+        printf("\n======================================================\n");
+        printf("Nenhuma tarefa cadastrada.");
+        printf("\n======================================================\n");
 
     }
 }
