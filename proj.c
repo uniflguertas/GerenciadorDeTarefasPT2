@@ -1,6 +1,16 @@
 #include <stdio.h>
 #include "proj.h"
 
+void salvarTarefas(Tarefa tarefas[], int numTarefas) {
+    FILE *file = fopen("tarefas.bin", "wb");
+    if (file) {
+        fwrite(tarefas, sizeof(Tarefa), numTarefas, file);
+        fclose(file);
+    } else {
+        printf("Erro ao salvar tarefa. Tente novamente ou reinicie o programa.\n");
+    }
+}
+
 // Função para cadastro de novas tarefas:
 void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
     if (*numTarefas < 100) {
@@ -268,4 +278,5 @@ void alterarTarefa(Tarefa tarefas[], int numTarefas) {
         default:
             printf("Erro: Numero invalido. Campo da tarefa nao encontrado.\n");
     }
+    salvarTarefas(tarefas, numTarefas);
 }
