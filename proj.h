@@ -3,6 +3,7 @@ typedef struct {
     int prioridade;
     char categoria[100];
     char descricao[300];
+    int estado;
 } Tarefa;
 
 // Declaração das funções do "proj.c":
