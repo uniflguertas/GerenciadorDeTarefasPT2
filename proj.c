@@ -98,3 +98,43 @@ void deletarTarefa(Tarefa tarefas[], int *numTarefas) {
 
     }
 }
+
+void alterarTarefa(Tarefa tarefas[], int numTarefas) {
+    int numero, opcao;
+    printf("======================================================\n");
+    printf("\nEditar tarefa existente:\n");
+    printf("\nDigite o numero da tarefa a ser alterada: ");
+    scanf("%d", &numero);
+
+    if (numero < 1 || numero > numTarefas) {
+        printf("\nErro: Numero invalido. Tarefa nao encontrada.\n");
+        printf("\n======================================================\n");
+        return;
+    }
+
+    Tarefa *tarefa = &tarefas[numero - 1];
+    printf("\nEscolha o campo a ser alterado:\n");
+    printf("1. Prioridade\n2. Descricao\n3. Categoria\n4. Estado\n");
+    scanf("%d", &opcao);
+
+    switch(opcao) {
+        case 1:
+            printf("Nova Prioridade: ");
+            scanf("%d", &tarefa->prioridade);
+            break;
+        case 2:
+            printf("Nova Descricao: ");
+            scanf(" %[^\n]s", tarefa->descricao);
+            break;
+        case 3:
+            printf("Nova Categoria: ");
+            scanf(" %[^\n]s", tarefa->categoria);
+            break;
+        case 4:
+            printf("Novo Estado (Digite apenas o algarismo): \n 1. nao iniciado, 2. em andamento, 3. completo: ");
+            scanf("%d", (int *)&tarefa->estado);
+            break;
+        default:
+            printf("Erro: Numero invalido. Campo da tarefa nao encontrado.\n");
+    }
+}
