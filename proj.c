@@ -257,7 +257,7 @@ void deletarTarefa(Tarefa tarefas[], int *numTarefas) {
             printf("Erro: Numero invalido. Tarefa nao encontrada.\n");
         }
     }
-    // Se não houver nenhuma tarefa para deleção, retorna mensagem.
+ // Se não houver nenhuma tarefa para deleção, retorna mensagem.
     else {
         printf("\nNenhuma tarefa cadastrada para deletar!\n");
         printf("\n======================================================\n");
@@ -265,6 +265,7 @@ void deletarTarefa(Tarefa tarefas[], int *numTarefas) {
     }
 }
 
+// Função para alterar uma tarefa existente.
 void alterarTarefa(Tarefa tarefas[], int numTarefas) {
     int numero, opcao;
     printf("======================================================\n");
@@ -304,9 +305,10 @@ void alterarTarefa(Tarefa tarefas[], int numTarefas) {
             printf("Erro: Numero invalido. Campo da tarefa nao encontrado.\n");
     }
 
-    salvarTarefas(tarefas, numTarefas);
+    salvarTarefas(tarefas, numTarefas); // Salva as alterações no arquivo.
 }
 
+// Funções para exportar tarefas por prioridade, categoria ou ambas.
 void exportarTarefasPorPrioridade(Tarefa tarefas[], int numTarefas, int prioridade) {
     FILE *file = fopen("tarefas_por_prioridade.bin", "wb");
     if (file == NULL) {
@@ -355,6 +357,7 @@ void exportarTarefasPorPrioridadeCategoria(Tarefa tarefas[], int numTarefas, int
     fclose(file);
 }
 
+// Função principal para exportar tarefas.
 int exportarTarefas(Tarefa tarefas[], int numTarefas) {
     int escolha;
     int prioridade;
