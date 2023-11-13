@@ -144,6 +144,8 @@ void listarTarefas(Tarefa tarefa[], int numTarefas) {
                 }
             }
 
+         // COMENTÁRIO EXTERNO: se reparar, vai perceber que a estrutura do caso 3 abaixo mudou drasticamente em relação a branch anterior. Isso se dá pelo fato de eu ter percebido enquanto relia o enunciado do
+         // Projeto que meu algoritmo não ordenava as tarefas por ordem de prioridade. Este é o motivo da mudança.
             else if(opcaoFiltro == 3) {
                 printf("\nDigite a categoria desejada: ");
                 scanf("%s", categoriaFiltro);
