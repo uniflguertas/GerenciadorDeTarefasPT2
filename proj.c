@@ -53,12 +53,12 @@ void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
 
         // Solicita ao usuário a descrição da tarefa e a armazena na variável novaTarefa.
         printf("Descricao (ate 300 letras): ");
-        scanf(" %s[^\n]", novaTarefa.descricao);
+        scanf(" %[^\n]", novaTarefa.descricao);
         limpaBuffer();
 
         // Solicita ao usuário a categoria da tarefa e a armazena na variável novaTarefa.
         printf("Categoria (ate 100 letras): ");
-        scanf(" %s[^\n]", novaTarefa.categoria);
+        scanf(" %[^\n]", novaTarefa.categoria);
         limpaBuffer();
 
         // Solicita ao usuário o estado da tarefa e o armazena na variável novaTarefa.
@@ -538,5 +538,7 @@ int exportarTarefas(Tarefa tarefas[], int numTarefas) {
             return 1;
     }
 
+    return 0;
+}
     return 0;
 }
