@@ -25,6 +25,7 @@ int main(){
         printf("2. Deletar Tarefa\n");
         printf("3. Listar Tarefas\n");
         printf("4. Alterar Tarefa\n");
+        printf("5. Exportar Tarefas\n");
         printf("Lembre-se: A quantidade maxima de tarefas eh 100!\n");
         printf("\nDigite aqui o algarismo da funcionalidade desejada: ");
         scanf("%d", &opcao);
@@ -52,6 +53,10 @@ int main(){
 
         else if(opcao == 4){
             alterarTarefa(tarefas, numTarefas);
+        }
+
+        else if(opcao == 5){
+            exportarTarefas(tarefas, numTarefas);
         }
 
             //se o input do usuário não for nenhuma das opções acima, retorna erro.
