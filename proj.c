@@ -295,3 +295,51 @@ void alterarTarefa(Tarefa tarefas[], int numTarefas) {
     }
     salvarTarefas(tarefas, numTarefas);
 }
+
+void exportarTarefasPorPrioridade(Tarefa tarefas[], int numTarefas, int prioridade) {
+    FILE *file = fopen("tarefas_por_prioridade.bin", "wb");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    for (int i = 0; i < numTarefas; i++) {
+        if (tarefas[i].prioridade == prioridade) {
+            fwrite(&tarefas[i], sizeof(Tarefa), 1, file);
+        }
+    }
+
+    fclose(file);
+}
+
+void exportarTarefasPorCategoria(Tarefa tarefas[], int numTarefas, char *categoria) {
+    FILE *file = fopen("tarefas_por_categoria.bin", "wb");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    for (int i = 0; i < numTarefas; i++) {
+        if (strcmp(tarefas[i].categoria, categoria) == 0) {
+            fwrite(&tarefas[i], sizeof(Tarefa), 1, file);
+        }
+    }
+
+    fclose(file);
+}
+
+void exportarTarefasPorPrioridadeCategoria(Tarefa tarefas[], int numTarefas, int prioridade, char *categoria) {
+    FILE *file = fopen("tarefas_por_prioridade_categoria.bin", "wb");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+    for (int i = 0; i < numTarefas; i++) {
+        if (tarefas[i].prioridade == prioridade && strcmp(tarefas[i].categoria, categoria) == 0) {
+            fwrite(&tarefas[i], sizeof(Tarefa), 1, file);
+        }
+    }
+
+    fclose(file);
+}
