@@ -49,7 +49,7 @@ void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
         printf("\nTarefa cadastrada com sucesso!");
         printf("\n======================================================\n");
     } else {
-        // Mensagem de erro se o limite de tarefas for atingido.
+     // Mensagem de erro se o limite de tarefas for atingido.
         printf("O limite de tarefas atingido. Não eh possível cadastrar mais tarefas.\n");
     }
 }
