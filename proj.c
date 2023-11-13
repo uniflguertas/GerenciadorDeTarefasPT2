@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include "proj.h"
+#include "string.h"
+#include "search.h"
+
 
 void salvarTarefas(Tarefa tarefas[], int numTarefas) {
     FILE *file = fopen("tarefas.bin", "wb");
@@ -53,6 +56,7 @@ void listarTarefas(Tarefa tarefa[], int numTarefas) {
     char realizarFiltragem[2];
     int opcaoFiltro, prioridadeFiltro, estadoFiltro;
     char categoriaFiltro[100];
+
  // Se número de tarefas cadastradas > 0, mostrar lista.
     if (numTarefas > 0) {
         printf("======================================================\n");
@@ -140,31 +144,42 @@ void listarTarefas(Tarefa tarefa[], int numTarefas) {
                 }
             }
 
-            else if(opcaoFiltro == 3){
+            else if(opcaoFiltro == 3) {
                 printf("\nDigite a categoria desejada: ");
                 scanf("%s", categoriaFiltro);
+
+                Tarefa tarefasFiltradas[100]; // Ajuste o tamanho conforme necessário
+                int contagemFiltrada = 0;
+
+                for (int i = 0; i < numTarefas; i++) {
+                    if (strcmp(tarefa[i].categoria, categoriaFiltro) == 0) {
+                        tarefasFiltradas[contagemFiltrada++] = tarefa[i];
+                    }
+                }
+
+                qsort(tarefasFiltradas, contagemFiltrada, sizeof(Tarefa), compararPrioridade);
+
                 printf("======================================================\n");
                 printf("Lista de Tarefas\n");
                 printf("======================================================\n");
-                for (int i = 0; i < numTarefas; i++) {
-                    if(strcmp(tarefa[i].categoria, categoriaFiltro) == 0) {
-                        printf("\nTarefa %d:\n", i + 1);
-                        printf("Prioridade: %d\n", tarefa[i].prioridade);
-                        printf("Descricao: %s\n", tarefa[i].descricao);
-                        printf("Categoria: %s\n", tarefa[i].categoria);
-                        if(tarefa[i].estado == 1){
-                            printf("Estado: nao iniciada\n");
-                        }
-                        else if(tarefa[i].estado == 2){
-                            printf("Estado: em andamento\n");
-                        }
-                        else if(tarefa[i].estado == 3){
-                            printf("Estado: completa\n");
-                        }
-                        printf("\n======================================================\n");
+                for (int i = 0; i < contagemFiltrada; i++) {
+                    printf("\nTarefa %d:\n", i + 1);
+                    printf("Prioridade: %d\n", tarefasFiltradas[i].prioridade);
+                    printf("Descricao: %s\n", tarefasFiltradas[i].descricao);
+                    printf("Categoria: %s\n", tarefasFiltradas[i].categoria);
+                    if(tarefasFiltradas[i].estado == 1){
+                        printf("Estado: nao iniciada\n");
                     }
+                    else if(tarefasFiltradas[i].estado == 2){
+                        printf("Estado: em andamento\n");
+                    }
+                    else if(tarefasFiltradas[i].estado == 3){
+                        printf("Estado: completa\n");
+                    }
+                    printf("\n======================================================\n");
                 }
             }
+
             else if(opcaoFiltro == 4){
                 printf("\nDigite a prioridade desejada: ");
                 scanf("%d", &prioridadeFiltro);
