@@ -3,21 +3,22 @@
 #include "string.h"
 #include "search.h"
 
-
+// Função para salvar tarefas em um arquivo binário.
 void salvarTarefas(Tarefa tarefas[], int numTarefas) {
-    FILE *file = fopen("tarefas.bin", "wb");
+    FILE *file = fopen("tarefas.bin", "wb");  // Abre o arquivo tarefas.bin em modo de escrita binária.
     if (file) {
-        fwrite(tarefas, sizeof(Tarefa), numTarefas, file);
-        fclose(file);
+        fwrite(tarefas, sizeof(Tarefa), numTarefas, file); // Escreve as tarefas no arquivo.
+        fclose(file); // Fecha o arquivo.
     } else {
-        printf("Erro ao salvar tarefa. Tente novamente ou reinicie o programa.\n");
+        printf("Erro ao salvar tarefa. Tente novamente ou reinicie o programa.\n"); // Mensagem de erro se o arquivo não puder ser aberto.
     }
 }
 
-// Função para cadastro de novas tarefas:
+// Função para cadastrar uma nova tarefa.
 void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
-    if (*numTarefas < 100) {
+    if (*numTarefas < 100) { // Verifica se o número de tarefas é menor que 100.
         Tarefa novaTarefa;
+     // Solicita informações sobre a tarefa.
         printf("======================================================\n");
         printf("\nCadastrar Nova Tarefa:\n");
 
@@ -41,14 +42,23 @@ void cadastrarTarefa(Tarefa tarefas[], int *numTarefas) {
         printf("Estado (Digite apenas o algarismo): \n 1. nao iniciado, 2. em andamento, 3. completo: ");
         scanf("%d[^\n]", &novaTarefa.estado);
 
-        tarefas[*numTarefas] = novaTarefa;
-        (*numTarefas)++;
+        tarefas[*numTarefas] = novaTarefa; // Adiciona a nova tarefa ao array.
+        (*numTarefas)++; // Incrementa o contador de tarefas.
+
 
         printf("\nTarefa cadastrada com sucesso!");
         printf("\n======================================================\n");
     } else {
+        // Mensagem de erro se o limite de tarefas for atingido.
         printf("O limite de tarefas atingido. Não eh possível cadastrar mais tarefas.\n");
     }
+}
+
+// Função para comparar prioridades de tarefas (usada em qsort).
+int compararPrioridade(const void *a, const void *b) {
+    Tarefa *tarefaA = (Tarefa *)a;
+    Tarefa *tarefaB = (Tarefa *)b;
+    return tarefaB->prioridade - tarefaA->prioridade; // Ordem decrescente.
 }
 
 // Função de listagem das tarefas cadastradas:
@@ -230,7 +240,7 @@ void deletarTarefa(Tarefa tarefas[], int *numTarefas) {
         int numero;
         printf("======================================================\n");
      // Pede o número associado a tarefa desejada para deleção.
-        printf("\nDigite o número da tarefa a ser deletada: ");
+        printf("\nDigite o numero da tarefa a ser deletada: ");
         scanf("%d", &numero);
      // Se "número" >= 1 e "número" <= endereço de numTarefas, atribuir nova numeração a respectiva tarefa de acordo com a ocorrência de deleções.
         if (numero >= 1 && numero <= *numTarefas) {
@@ -240,17 +250,17 @@ void deletarTarefa(Tarefa tarefas[], int *numTarefas) {
          // Deleta tarefa em seu respectivo endereço atribuído.
             (*numTarefas)--;
             printf("\nTarefa deletada com sucesso!\n");
-            printf("============================\n");
+            printf("\n======================================================\n");
         }
      // Se o número da tarefa desejada para deleção for inválido, retorna erro.
         else {
-            printf("Erro: Número inválido. Tarefa não encontrada.\n");
+            printf("Erro: Numero invalido. Tarefa nao encontrada.\n");
         }
     }
     // Se não houver nenhuma tarefa para deleção, retorna mensagem.
     else {
         printf("\nNenhuma tarefa cadastrada para deletar!\n");
-        printf("=========================================\n");
+        printf("\n======================================================\n");
 
     }
 }
@@ -293,6 +303,7 @@ void alterarTarefa(Tarefa tarefas[], int numTarefas) {
         default:
             printf("Erro: Numero invalido. Campo da tarefa nao encontrado.\n");
     }
+
     salvarTarefas(tarefas, numTarefas);
 }
 
@@ -342,4 +353,49 @@ void exportarTarefasPorPrioridadeCategoria(Tarefa tarefas[], int numTarefas, int
     }
 
     fclose(file);
+}
+
+int exportarTarefas(Tarefa tarefas[], int numTarefas) {
+    int escolha;
+    int prioridade;
+    char categoria[100];
+
+    printf("======================================================\n");
+    printf("\nExportar tarefas:\n");
+    printf("\nSelecione como deseja exportar as tarefas: \n");
+    printf("1. Por Prioridade\n");
+    printf("2. Por Categoria\n");
+    printf("3. Por Prioridade e Categoria\n");
+    printf("\nDigite aqui: ");
+    scanf("%d", &escolha);
+
+    switch (escolha) {
+        case 1:
+            printf("Digite a prioridade desejada:");
+            scanf("%d", &prioridade);
+            exportarTarefasPorPrioridade(tarefas, numTarefas, prioridade);
+            printf("==================================================\n");
+            break;
+        case 2:
+            printf("Digite a categoria desejada:");
+            scanf("%100s", categoria);
+            categoria[strcspn(categoria, "\n")] = 0; // Remove o newline lido por fgets
+            exportarTarefasPorCategoria(tarefas, numTarefas, categoria);
+            printf("==================================================\n");
+            break;
+        case 3:
+            printf("Digite a categoria desejada:");
+            scanf("%100s", categoria);
+            categoria[strcspn(categoria, "\n")] = 0;
+            printf("Digite a Prioridade desejada:");
+            scanf("%d", &prioridade);
+            exportarTarefasPorPrioridadeCategoria(tarefas, numTarefas, prioridade, categoria);
+            printf("==================================================\n");
+            break;
+        default:
+            printf("\nErro: Numero invalido. Tarefa nao encontrada.\n");
+            return 1;
+    }
+
+    return 0;
 }
